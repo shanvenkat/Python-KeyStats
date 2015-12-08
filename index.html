@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Python-keystats by shanvenkat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Python-keystats</h1>
+      <h2 class="project-tagline">A Python program to parse unstructured Data to Structured Data using Pandas, Matplotlib for data insights</h2>
+      <a href="https://github.com/shanvenkat/Python-KeyStats" class="btn">View on GitHub</a>
+      <a href="https://github.com/shanvenkat/Python-KeyStats/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/shanvenkat/Python-KeyStats/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p>import pandas as pd
+import os
+import time
+from datetime import datetime
+import matplotlib.pyplot as plt</p>
+
+<p>path="/home/ubu/Downloads/intraQuarter"
+def Key_Stats(xlist,ylist):
+    #xlist=[]
+    statspath=path+'/_KeyStats'
+    df = pd.DataFrame(columns=[
+                               #'TotalDebtEquity_hdr',
+                               'Revenue_hdr',
+                               'RevenuePerShare_hdr'
+                               #'GrossProfit_hdr',
+                               #'NYSEShare_hdr'
+                               ])
+    stock_list=[x[0] for x in os.walk(statspath)]
+    #print(stock_list)
+    for each_dir in stock_list[1:]:
+        if (each_dir == statspath + '/a'):
+            #print (each_dir)
+            each_file = os.listdir(each_dir)
+            #print(each_file)
+            #xlist=[]
+            #ylist=[]
+            for file in each_file:</p>
+
+<pre><code>            #print(file)
+            #try:
+                date_stamp = datetime.strptime(file, '%Y%m%d%H%M%S.html')
+                unix_time = time.mktime(date_stamp.timetuple())
+                full_file_path=each_dir +'/'+file
+                #print(full_file_path)
+                source=open(full_file_path, 'r').read()
+                #TotalDebtEquity=source.split('Total Debt/Equity (mrq):&lt;/td&gt;&lt;td class="yfnc_tabledata1"&gt;')[1].split('&lt;/td&gt;')[0]
+                #print(TotalDebtEquity)
+                Revenue=source.split('Revenue (ttm):&lt;/td&gt;&lt;td class="yfnc_tabledata1"&gt;')[1].split('&lt;/td&gt;')[0].split('B')[0]   
+                RevenuePerShare=source.split('Revenue Per Share (ttm):&lt;/td&gt;&lt;td class="yfnc_tabledata1"&gt;')[1].split('&lt;/td&gt;')[0]
+
+                xlist.append(Revenue)
+                ylist.append(RevenuePerShare)
+                #print (xlist)
+
+                #GrossProfit=source.split('Gross Profit (ttm):&lt;/td&gt;&lt;td class="yfnc_tabledata1"&gt;')[1].split('&lt;/td&gt;')[0].split('B')[0]
+                #Gross Profit (ttm)&amp;sup2;:&lt;/td&gt;&lt;td class="yfnc_tabledata1"
+                #GrossProfit=source.split('Gross Profit (ttm)&amp;sup2;:&lt;/td&gt;&lt;td class="yfnc_tabledata1"&gt;')[1].split('&lt;/td&gt;')[0].split('B')[0]    
+                #print(GrossProfit)
+                #NYSEShare=source.split('&lt;span class="time_rtq_ticker"&gt;&lt;span id="yfs_l84_abbv"&gt;')[1].split('&lt;/span&gt;')[0]
+                #print(NYSEShare)
+                #X_revenue.extend(Revenue)
+                #xaxis=([1,2,3,])
+
+                df=df.append({
+                        #'TotalDebtEquity_hdr':TotalDebtEquity,
+                        'Revenue_hdr':Revenue,
+                        'RevenuePerShare_hdr':RevenuePerShare
+                         # 'GrossProfit_hdr':GrossProfit,
+                         #'NYSEShare_hdr':NYSEShare,
+                         },
+                         ignore_index=True)
+                df.to_csv('keystats.csv')
+        return (xlist,ylist)
+
+
+            #except Exception as e:
+                #pass
+</code></pre>
+
+<p>x=[]
+y=[]
+xlist,ylist = Key_Stats(x,y)</p>
+
+<h2>
+<a id="printxlistylist" class="anchor" href="#printxlistylist" aria-hidden="true"><span class="octicon octicon-link"></span></a>print(xlist,ylist)</h2>
+
+<h1>
+<a id="pltplotxlistylist" class="anchor" href="#pltplotxlistylist" aria-hidden="true"><span class="octicon octicon-link"></span></a>plt.plot(xlist,ylist)</h1>
+
+<h1>
+<a id="pltbarxlistylist" class="anchor" href="#pltbarxlistylist" aria-hidden="true"><span class="octicon octicon-link"></span></a>plt.bar(xlist,ylist)</h1>
+
+<p>plt.scatter(xlist,ylist, label='skitscat', color='k', s=25, marker="o")
+plt.xlabel('Revenue')
+plt.ylabel('Revenue Per Share')
+plt.title("Rvene Vs Revenue Per Share")
+plt.legend()
+plt.show()</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/shanvenkat/Python-KeyStats">Python-keystats</a> is maintained by <a href="https://github.com/shanvenkat">shanvenkat</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
