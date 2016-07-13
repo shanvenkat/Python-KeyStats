@@ -1,0 +1,48 @@
+import os
+import pandas as pd
+
+## Local File Location
+path = '/home/ubu/Downloads/intraQuarter/_KeyStats/a/test.html'
+source = open(path, 'r').read()
+
+# -- data 1 -- 
+data1 = source.split('</title>')[0].split('<title>')[1]
+
+#data -2
+data2 = source.split('<h1 style="margin-left:0in;text-indent:0in">')[1].split('</h1>')[0]
+
+# data 3 CHAPTER&nbsp;3&nbsp;DESIGNATED PILOT EXAMINERS
+data3 = source.split('<h1 style="margin-left:0in;text-indent:0in">')[1].split('<h2><b>')[1].split('</b></h2>')[0]
+
+# data 4 Section 1 Designate/Renew a General Aviation Pilot Examiner
+data4 = source.split('<h1 style="margin-left:0in;text-indent:0in">')[1]\
+.split('<h2 style="margin-left:0in;text-indent:0in">')[1].split('</h2>')[0]
+
+#data 5 --PROGRAM
+#TRACKING AND REPORTING SUBSYSTEM (PTRS) ACTIVITY CODES
+data5 = source.split('</span></span></b><b>')[1].split('</b></h3>')[0]
+
+print(data1)
+print(data2)
+print(data3)
+print(data4)
+print(data5)
+
+df = pd.DataFrame(columns=[
+                            'Data1',
+                            'Data2',
+                            'Data3',
+                            'Data4',
+                            'Data5'
+                          ])
+
+df=df.append({
+        'Data1':data1,
+        'Data2':data2,
+        'Data3':data3,
+        'Data4':data4,
+        'Data5':data5
+        
+    }, ignore_index=True)
+
+df.to_csv('/home/ubu/Downloads/intraQuarter/_KeyStats/a/fivedata.csv')
